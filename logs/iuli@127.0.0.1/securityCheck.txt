@@ -1,0 +1,207 @@
+### Inceperea verificarilor de securitate pentru iuli@127.0.0.1 ###
+Data: Wed Jun 26 06:22:08 PM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 3603 Jun 17 10:35 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 2144 Jun 17 10:35 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3271 Jun 21 08:18 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobisnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     591  0.0  0.1  89516  6724 ?        Ssl  08:04   0:00 /lib/systemd/systemd-timesyncd
+root         617  0.0  0.0  82700  3976 ?        Ssl  08:04   0:02 /usr/sbin/irqbalance --foreground
+iuli        1662  0.0  0.1 309800  8320 ?        Sl   08:05   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        1814  0.0  0.7 467488 39928 ?        Sl   08:05   0:05 cinnamon-launcher
+iuli        3353  0.7  2.5 34075028 127540 ?     Sl   08:52   4:15 /usr/share/code/code --type=gpu-process --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --gpu-preferences=WAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version
+iuli        3375  2.4  7.5 1190480576 380660 ?   Sl   08:52  14:00 /usr/share/code/code --type=renderer --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/usr/share/code/resources/app --enable-sandbox --enable-blink-features=HighlightAPI --disable-blink-features=FontMatchingCTMigration, --lang=en-US --num-raster-threads=1 --renderer-client-id=4 --time-ticks-at-unix-epoch=-1719378267076666 --launch-time-ticks=2876636720 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version --vscode-window-config=vscode:03685e22-3b25-4e47-8a1a-11bae56250ba
+iuli        8353  1.0  0.1  19800  8432 pts/0    S+   18:22   0:00 ssh iuli@127.0.0.1 ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        8364  0.0  0.0  12848  3892 ?        Ss   18:22   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        8366  0.0  0.0  12096  2600 ?        S    18:22   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fara parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fisierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \;
+### Inceperea verificarilor de securitate pentru iuli@127.0.0.1 ###
+Data: Wed Jun 26 07:05:47 PM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 3603 Jun 17 10:35 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 2144 Jun 17 10:35 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3271 Jun 21 08:18 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobisnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     591  0.0  0.1  89516  6724 ?        Ssl  08:04   0:00 /lib/systemd/systemd-timesyncd
+root         617  0.0  0.0  82700  3976 ?        Ssl  08:04   0:02 /usr/sbin/irqbalance --foreground
+iuli        1662  0.0  0.1 309800  8320 ?        Sl   08:05   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        1814  0.0  0.7 467488 39932 ?        Sl   08:05   0:05 cinnamon-launcher
+iuli        3353  0.7  2.4 34075220 124328 ?     Sl   08:52   4:40 /usr/share/code/code --type=gpu-process --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --gpu-preferences=WAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version
+iuli        3375  2.4  7.4 1190480768 373708 ?   Sl   08:52  15:00 /usr/share/code/code --type=renderer --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/usr/share/code/resources/app --enable-sandbox --enable-blink-features=HighlightAPI --disable-blink-features=FontMatchingCTMigration, --lang=en-US --num-raster-threads=1 --renderer-client-id=4 --time-ticks-at-unix-epoch=-1719378267076666 --launch-time-ticks=2876636720 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version --vscode-window-config=vscode:03685e22-3b25-4e47-8a1a-11bae56250ba
+iuli        9194  0.0  0.1  19800  8456 pts/0    S+   19:05   0:00 ssh iuli@127.0.0.1 ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9205  0.0  0.0  12848  3860 ?        Ss   19:05   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9207  0.0  0.0  12096  2616 ?        R    19:05   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fara parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fisierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \;
+-rwsr-sr-x 1 root root 14488 Dec 13  2023 /usr/lib/xorg/Xorg.wrap
+-rwsr-xr-x 1 root root 338536 Mar 15 22:28 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 35112 Oct 25  2022 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 18736 Feb 26  2022 /usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root mail 22856 Jun 19  2023 /usr/libexec/camel-lock-helper-1.2
+-rwxr-sr-x 1 root shadow 26776 Feb  2  2023 /usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 22680 Feb  2  2023 /usr/sbin/pam_extrausers_chkpwd
+-rwsr-xr-x 1 root root 22680 Nov 23  2020 /usr/sbin/mount.ecryptfs_private
+-rwsr-xr-x 1 root root 52296 Jun  1  2022 /usr/sbin/mount.cifs
+-rwsr-xr-- 1 root dip 424512 Feb 24  2022 /usr/sbin/pppd
+-rwsr-xr-x 1 root root 54248 May 17 09:29 /usr/share/code/chrome-sandbox
+----------------------------------------
+### Verificarile de securitate s-au incheiat pentru iuli@127.0.0.1 ###
+### Începerea verificărilor de securitate pentru iuli@127.0.0.1 ###
+Data: Wed Jun 26 07:08:54 PM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 3603 Jun 17 10:35 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 2144 Jun 17 10:35 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3271 Jun 21 08:18 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobișnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     591  0.0  0.1  89516  6724 ?        Ssl  08:04   0:00 /lib/systemd/systemd-timesyncd
+root         617  0.0  0.0  82700  3976 ?        Ssl  08:04   0:02 /usr/sbin/irqbalance --foreground
+iuli        1662  0.0  0.1 309800  8320 ?        Sl   08:05   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        1814  0.0  0.7 467488 39932 ?        Sl   08:05   0:05 cinnamon-launcher
+iuli        3353  0.7  2.5 34078164 128024 ?     Sl   08:52   4:43 /usr/share/code/code --type=gpu-process --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --gpu-preferences=WAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version
+iuli        3375  2.4  7.6 1190483712 385512 ?   Sl   08:52  15:09 /usr/share/code/code --type=renderer --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/usr/share/code/resources/app --enable-sandbox --enable-blink-features=HighlightAPI --disable-blink-features=FontMatchingCTMigration, --lang=en-US --num-raster-threads=1 --renderer-client-id=4 --time-ticks-at-unix-epoch=-1719378267076666 --launch-time-ticks=2876636720 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version --vscode-window-config=vscode:03685e22-3b25-4e47-8a1a-11bae56250ba
+iuli        9369  1.0  0.1  19800  8580 pts/0    S+   19:08   0:00 ssh iuli@127.0.0.1 ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9380  0.0  0.0  12848  3808 ?        Ss   19:08   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9382  0.0  0.0  12096  2620 ?        S    19:08   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fără parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fișierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \; 2>/dev/null
+-rwsr-sr-x 1 root root 14488 Dec 13  2023 /usr/lib/xorg/Xorg.wrap
+-rwsr-xr-x 1 root root 338536 Mar 15 22:28 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 35112 Oct 25  2022 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 18736 Feb 26  2022 /usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root mail 22856 Jun 19  2023 /usr/libexec/camel-lock-helper-1.2
+-rwxr-sr-x 1 root shadow 26776 Feb  2  2023 /usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 22680 Feb  2  2023 /usr/sbin/pam_extrausers_chkpwd
+-rwsr-xr-x 1 root root 22680 Nov 23  2020 /usr/sbin/mount.ecryptfs_private
+-rwsr-xr-x 1 root root 52296 Jun  1  2022 /usr/sbin/mount.cifs
+-rwsr-xr-- 1 root dip 424512 Feb 24  2022 /usr/sbin/pppd
+-rwsr-xr-x 1 root root 54248 May 17 09:29 /usr/share/code/chrome-sandbox
+-rwsr-xr-x 1 root root 47480 Feb 21  2022 /usr/bin/mount
+-rwsr-xr-x 1 root root 40496 Nov 24  2022 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 44808 Nov 24  2022 /usr/bin/chsh
+-rwsr-xr-x 1 root root 59976 Nov 24  2022 /usr/bin/passwd
+-rwxr-sr-x 1 root tty 22904 Feb 21  2022 /usr/bin/wall
+-rwsr-xr-x 1 root root 232416 Apr  3  2023 /usr/bin/sudo
+-rwsr-xr-x 1 root root 35192 Feb 21  2022 /usr/bin/umount
+-rwxr-sr-x 1 root shadow 72184 Nov 24  2022 /usr/bin/chage
+-rwxr-sr-x 1 root crontab 39568 Mar 23  2022 /usr/bin/crontab
+-rwxr-sr-x 1 root tty 22912 Feb 21  2022 /usr/bin/write.ul
+-rwsr-xr-x 1 root root 30872 Feb 26  2022 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 55672 Feb 21  2022 /usr/bin/su
+-rwsr-xr-x 1 root root 14656 Dec  5  2023 /usr/bin/vmware-user-suid-wrapper
+-rwxr-sr-x 1 root _ssh 293304 Mar 15 22:28 /usr/bin/ssh-agent
+-rwxr-sr-x 1 root shadow 23136 Nov 24  2022 /usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 Nov 24  2022 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 72712 Nov 24  2022 /usr/bin/chfn
+-rwxr-sr-x 1 root plocate 313904 Feb 17  2022 /usr/bin/plocate
+-rwsr-xr-x 1 root root 35200 Mar 23  2022 /usr/bin/fusermount3
+-rwsr-xr-x 1 root root 377352 Jan 15 16:02 /opt/VBoxGuestAdditions-7.0.14/bin/VBoxDRMClient
+----------------------------------------
+### Verificările de securitate s-au încheiat pentru iuli@127.0.0.1 ###
+### Inceperea verificarilor de securitate pentru iuli@127.0.0.1 ###
+Data: Wed Jun 26 08:16:12 PM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 3603 Jun 17 10:35 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 2144 Jun 17 10:35 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3271 Jun 21 08:18 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobisnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     591  0.0  0.1  89516  6724 ?        Ssl  08:59   0:00 /lib/systemd/systemd-timesyncd
+root         617  0.0  0.0  82700  3976 ?        Ssl  08:59   0:02 /usr/sbin/irqbalance --foreground
+iuli        1662  0.0  0.1 309800  8320 ?        Sl   08:59   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        1814  0.0  0.7 467488 39932 ?        Sl   08:59   0:05 cinnamon-launcher
+iuli        3353  0.7  2.5 34077268 129468 ?     Sl   09:46   4:55 /usr/share/code/code --type=gpu-process --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --gpu-preferences=WAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version
+iuli        3375  2.5  7.7 1190482816 391560 ?   Sl   09:46  15:56 /usr/share/code/code --type=renderer --crashpad-handler-pid=3333 --enable-crash-reporter=933031c1-0014-4ad2-bb72-a6bb3f2f5a0c,no_channel --user-data-dir=/home/iuli/.config/Code --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --app-path=/usr/share/code/resources/app --enable-sandbox --enable-blink-features=HighlightAPI --disable-blink-features=FontMatchingCTMigration, --lang=en-US --num-raster-threads=1 --renderer-client-id=4 --time-ticks-at-unix-epoch=-1719378267076666 --launch-time-ticks=2876636720 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,6731179435399681336,975859267796942676,262144 --enable-features=kWebSQLAccess --disable-features=CalculateNativeWinOcclusion,SpareRendererForSitePerProcess --variations-seed-version --vscode-window-config=vscode:03685e22-3b25-4e47-8a1a-11bae56250ba
+iuli        9774  0.0  0.1  19800  8584 pts/0    S+   20:16   0:00 ssh iuli@127.0.0.1 ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9785  0.0  0.0  12848  3840 ?        Ss   20:16   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        9787  0.0  0.0  12096  2656 ?        S    20:16   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fara parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fisierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \; 2>/dev/null
+-rwsr-sr-x 1 root root 14488 Dec 13  2023 /usr/lib/xorg/Xorg.wrap
+-rwsr-xr-x 1 root root 338536 Mar 15 22:28 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 35112 Oct 25  2022 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 18736 Feb 26  2022 /usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root mail 22856 Jun 19  2023 /usr/libexec/camel-lock-helper-1.2
+-rwxr-sr-x 1 root shadow 26776 Feb  2  2023 /usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 22680 Feb  2  2023 /usr/sbin/pam_extrausers_chkpwd
+-rwsr-xr-x 1 root root 22680 Nov 23  2020 /usr/sbin/mount.ecryptfs_private
+-rwsr-xr-x 1 root root 52296 Jun  1  2022 /usr/sbin/mount.cifs
+-rwsr-xr-- 1 root dip 424512 Feb 24  2022 /usr/sbin/pppd
+-rwsr-xr-x 1 root root 54248 May 17 09:29 /usr/share/code/chrome-sandbox
+-rwsr-xr-x 1 root root 47480 Feb 21  2022 /usr/bin/mount
+-rwsr-xr-x 1 root root 40496 Nov 24  2022 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 44808 Nov 24  2022 /usr/bin/chsh
+-rwsr-xr-x 1 root root 59976 Nov 24  2022 /usr/bin/passwd
+-rwxr-sr-x 1 root tty 22904 Feb 21  2022 /usr/bin/wall
+-rwsr-xr-x 1 root root 232416 Apr  3  2023 /usr/bin/sudo
+-rwsr-xr-x 1 root root 35192 Feb 21  2022 /usr/bin/umount
+-rwxr-sr-x 1 root shadow 72184 Nov 24  2022 /usr/bin/chage
+-rwxr-sr-x 1 root crontab 39568 Mar 23  2022 /usr/bin/crontab
+-rwxr-sr-x 1 root tty 22912 Feb 21  2022 /usr/bin/write.ul
+-rwsr-xr-x 1 root root 30872 Feb 26  2022 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 55672 Feb 21  2022 /usr/bin/su
+-rwsr-xr-x 1 root root 14656 Dec  5  2023 /usr/bin/vmware-user-suid-wrapper
+-rwxr-sr-x 1 root _ssh 293304 Mar 15 22:28 /usr/bin/ssh-agent
+-rwxr-sr-x 1 root shadow 23136 Nov 24  2022 /usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 Nov 24  2022 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 72712 Nov 24  2022 /usr/bin/chfn
+-rwxr-sr-x 1 root plocate 313904 Feb 17  2022 /usr/bin/plocate
+-rwsr-xr-x 1 root root 35200 Mar 23  2022 /usr/bin/fusermount3
+-rwsr-xr-x 1 root root 377352 Jan 15 16:02 /opt/VBoxGuestAdditions-7.0.14/bin/VBoxDRMClient
+----------------------------------------
+### Verificarile de securitate s-au încheiat pentru iuli@127.0.0.1 ###
