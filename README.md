@@ -10,3 +10,5 @@ M-am gandit si m-am interesat cum as putea sa fac acest proiect. Pot folosi para
 20.06.2024
 Mai trebuie sa lucrez la conexiunea prin ssh.
 
+26.06.2024
+Am scris un script pentru a verifica securitatea unui server folosind conexiuni ssh. scriptul face diverse verificari pentru a detecta vulnerabilitati in so critice de ex openssl, apache2, nginx,mysql server. rezultatele verificarilor sunt inregistrate în fisiere specifice pentru fiecare utilizator stocate în directoare separate
