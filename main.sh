@@ -40,7 +40,8 @@ while true; do
     read choice
     case $choice in
         1) ./monitor.sh "$user" "$host" ;;
-        2)./control_processes.sh "$user" "$host" ;;
+        2) ./control_processes.sh "$user" "$host" ;;
+        3) ./copy_files.sh "$user" "$host" ;;
         4) ./app_install.sh "$user" "$host" ;;
         6) echo "Exiting..."; break ;;
         *) echo "Invalid option";;
