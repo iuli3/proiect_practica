@@ -5,51 +5,52 @@ host=$2
 red='\033[1;91m'
 NC='\033[0m'
 
-ssh "$user@$host" <<'EOF'
-    red='\033[1;91m'
-    NC='\033[0m'
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Monitorizare Resurse${NC}"
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+ssh "$1@$2"<<EOF
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Monitorizare Resurse${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     
-    echo -e "${red}Tip OS:${NC} $(uname -o)"
-    echo -e "${red}Nume OS:${NC} $(lsb_release -i | cut -f 2)"
-    echo -e "${red}Versiune OS:${NC} $(lsb_release -r | cut -f 2)"
-    echo -e "${red}Arhitectură:${NC} $(uname -m)"
-    echo -e "${red}Versiune Kernel:${NC} $(uname -r)"
-    echo -e "${red}Hostname:${NC} $(hostname)"
-    echo -e "${red}IP Intern:${NC} $(hostname -I | cut -d ' ' -f 1)"
-    echo -e "${red}IP Extern:${NC} $(curl -s ifconfig.me)"
-    echo -e -n "${red}Nume servere DNS:${NC} "
+    echo "${red}Tip OS:${NC} $(uname -o)"
+    echo "${red}Nume OS:${NC} $(lsb_release -i | cut -f 2)"
+    echo "${red}Versiune OS:${NC} $(lsb_release -r | cut -f 2)"
+    echo "${red}Arhitectură:${NC} $(uname -m)"
+    echo "${red}Versiune Kernel:${NC} $(uname -r)"
+    echo "${red}Hostname:${NC} $(hostname)"
+    echo "${red}IP Intern:${NC} $(hostname -I | cut -d ' ' -f 1)"
+    echo "${red}IP Extern:${NC} $(curl -s ifconfig.me)"
+    echo -n "${red}Nume servere DNS:${NC} "
     grep '^nameserver' /etc/resolv.conf | cut -d ' ' -f 2
-    echo -e "${red}Utilizatori conectați:${NC}"
+    echo "${red}Utilizatori conectați:${NC}"
     who
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Utilizare RAM:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Utilizare RAM:${NC}"
     free -h
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Utilizare CPU:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Utilizare CPU:${NC}"
     top -bn1 | grep 'Cpu(s)' | sed 's/^.*: //'
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Utilizare I/O:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Utilizare I/O:${NC}"
     iostat
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Temperatură:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Temperatură:${NC}"
     sensors
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Utilizare disc:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Utilizare disc:${NC}"
     df -h
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Medie încărcare:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Medie încărcare:${NC}"
     uptime | sed 's/^.*load average: //'
 
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "${red}Uptime sistem:${NC}"
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "${red}Uptime sistem:${NC}"
     uptime -p
+
+
 EOF

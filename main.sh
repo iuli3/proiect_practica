@@ -16,8 +16,6 @@ ssh_menu() {
     echo -n "Hostname or IP: "
     read host
     echo ""
-    #python3 connectSSH.py "$user" "$host"
-    #ssh "$user@$host"
 }
 
 show_menu() {
