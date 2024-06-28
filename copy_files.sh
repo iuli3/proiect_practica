@@ -35,6 +35,7 @@ copy_from_guest_to_host() {
 
     echo -e "${blue}Local path: $local_path${NC}"
     echo -e "${blue}Guest path: $guest_path${NC}"
+    
     scp "$guest_user@$guest_address:$guest_path" "$local_path"
     if [ $? -eq 0 ]; then
         echo -e "${green}Copiere finalizata.${NC}"

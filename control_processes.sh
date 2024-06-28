@@ -37,7 +37,7 @@ start_remote_process() {
     fi
 
     echo -e "${blue}Pornez procesul '$command' pe serverul remote...${NC}"
-    ssh $username@$hostname "$command &"
+   ssh $username@$hostname "nohup $command > /dev/null 2>&1 &"
     echo -e "${blue}Procesul '$command' a fost pornit pe serverul remote.${NC}"
 }
 
