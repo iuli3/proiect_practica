@@ -29,13 +29,13 @@ copy_from_guest_to_host() {
 
     ssh "$guest_user@$guest_address" "[ -e \"$guest_path\" ]"
     if [ $? -ne 0 ]; then
-        echo -e "${red}Eroare: Calea guest specificată nu există pe mașina remote!${NC}"
+        echo -e "${red}Eroare: Calea guest specificata nu exista pe masina remote!${NC}"
         return
     fi
 
     echo -e "${blue}Local path: $local_path${NC}"
     echo -e "${blue}Guest path: $guest_path${NC}"
-    
+
     scp "$guest_user@$guest_address:$guest_path" "$local_path"
     if [ $? -eq 0 ]; then
         echo -e "${green}Copiere finalizata.${NC}"
@@ -68,7 +68,7 @@ copy_from_host_to_guest() {
     scp "$local_path" "$guest_user@$guest_address:$guest_path"
     
     if [ $? -eq 0 ]; then
-        echo -e "${green}Copiere finalizată${NC}"
+        echo -e "${green}Copiere finalizata${NC}"
     else
         echo -e "${red}Eroare în timpul copierii${NC}"
     fi
