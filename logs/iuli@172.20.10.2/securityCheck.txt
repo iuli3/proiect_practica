@@ -1,0 +1,258 @@
+### Inceperea verificarilor de securitate pentru iuli@172.20.10.2 ###
+Data: Thu Jun 27 10:26:39 PM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 2975 iun 27 19:49 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 1583 iun 27 19:49 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3254 mar 15 22:28 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobisnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     462  0.0  0.1  89388  7296 ?        Ssl  22:19   0:00 /lib/systemd/systemd-timesyncd
+root         589  0.0  0.0  82700  3968 ?        Ssl  22:19   0:00 /usr/sbin/irqbalance --foreground
+iuli        2799  0.0  0.1 309624  7680 ?        Sl   22:20   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        6058  0.0  0.0  13168  3712 ?        Ss   22:26   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        6060  0.0  0.0  12412  2816 ?        S    22:26   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fara parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fisierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \; 2>/dev/null
+-rwsr-xr-x 1 root root 377352 ian 15 16:02 /opt/VBoxGuestAdditions-7.0.14/bin/VBoxDRMClient
+-rwsr-xr-x 1 root root 135928 mar 21 23:14 /snap/snapd/21465/usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root root 135960 apr 24 19:45 /snap/snapd/21759/usr/lib/snapd/snap-confine
+-rwxr-sr-x 1 root shadow 84512 feb  6 14:49 /snap/core20/2318/usr/bin/chage
+-rwsr-xr-x 1 root root 85064 feb  6 14:49 /snap/core20/2318/usr/bin/chfn
+-rwsr-xr-x 1 root root 53040 feb  6 14:49 /snap/core20/2318/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 31312 feb  6 14:49 /snap/core20/2318/usr/bin/expiry
+-rwsr-xr-x 1 root root 88464 feb  6 14:49 /snap/core20/2318/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 55528 apr  9 18:34 /snap/core20/2318/usr/bin/mount
+-rwsr-xr-x 1 root root 44784 feb  6 14:49 /snap/core20/2318/usr/bin/newgrp
+-rwsr-xr-x 1 root root 68208 feb  6 14:49 /snap/core20/2318/usr/bin/passwd
+-rwxr-sr-x 1 root messagebus 350504 ian  2 19:13 /snap/core20/2318/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 67816 apr  9 18:34 /snap/core20/2318/usr/bin/su
+-rwsr-xr-x 1 root root 166056 apr  4  2023 /snap/core20/2318/usr/bin/sudo
+-rwsr-xr-x 1 root root 39144 apr  9 18:34 /snap/core20/2318/usr/bin/umount
+-rwsr-xr-- 1 root systemd-resolve 51344 oct 25  2022 /snap/core20/2318/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 477672 ian  2 19:13 /snap/core20/2318/usr/lib/openssh/ssh-keysign
+-rwxr-sr-x 1 root shadow 43168 ian 10 15:55 /snap/core20/2318/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 43160 ian 10 15:55 /snap/core20/2318/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 84512 feb  6 14:49 /snap/core20/2264/usr/bin/chage
+-rwsr-xr-x 1 root root 85064 feb  6 14:49 /snap/core20/2264/usr/bin/chfn
+-rwsr-xr-x 1 root root 53040 feb  6 14:49 /snap/core20/2264/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 31312 feb  6 14:49 /snap/core20/2264/usr/bin/expiry
+-rwsr-xr-x 1 root root 88464 feb  6 14:49 /snap/core20/2264/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 55528 mai 30  2023 /snap/core20/2264/usr/bin/mount
+-rwsr-xr-x 1 root root 44784 feb  6 14:49 /snap/core20/2264/usr/bin/newgrp
+-rwsr-xr-x 1 root root 68208 feb  6 14:49 /snap/core20/2264/usr/bin/passwd
+-rwxr-sr-x 1 root messagebus 350504 ian  2 19:13 /snap/core20/2264/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 67816 mai 30  2023 /snap/core20/2264/usr/bin/su
+-rwsr-xr-x 1 root root 166056 apr  4  2023 /snap/core20/2264/usr/bin/sudo
+-rwsr-xr-x 1 root root 39144 mai 30  2023 /snap/core20/2264/usr/bin/umount
+-rwxr-sr-x 1 root tty 35048 mai 30  2023 /snap/core20/2264/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 51344 oct 25  2022 /snap/core20/2264/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 477672 ian  2 19:13 /snap/core20/2264/usr/lib/openssh/ssh-keysign
+-rwxr-sr-x 1 root shadow 43168 ian 10 15:55 /snap/core20/2264/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 43160 ian 10 15:55 /snap/core20/2264/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 72184 nov 24  2022 /snap/core22/1122/usr/bin/chage
+-rwsr-xr-x 1 root root 72712 nov 24  2022 /snap/core22/1122/usr/bin/chfn
+-rwsr-xr-x 1 root root 44808 nov 24  2022 /snap/core22/1122/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 23136 nov 24  2022 /snap/core22/1122/usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 nov 24  2022 /snap/core22/1122/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 47480 feb 21  2022 /snap/core22/1122/usr/bin/mount
+-rwsr-xr-x 1 root root 40496 nov 24  2022 /snap/core22/1122/usr/bin/newgrp
+-rwsr-xr-x 1 root root 59976 nov 24  2022 /snap/core22/1122/usr/bin/passwd
+-rwxr-sr-x 1 root tcpdump 293304 ian  2 18:54 /snap/core22/1122/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 55672 feb 21  2022 /snap/core22/1122/usr/bin/su
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /snap/core22/1122/usr/bin/sudo
+-rwsr-xr-x 1 root root 35192 feb 21  2022 /snap/core22/1122/usr/bin/umount
+-rwxr-sr-x 1 root tty 22904 feb 21  2022 /snap/core22/1122/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 35112 oct 25  2022 /snap/core22/1122/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 338536 ian  2 18:54 /snap/core22/1122/usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /snap/core22/1122/usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root shadow 22680 feb  2  2023 /snap/core22/1122/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 feb  2  2023 /snap/core22/1122/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 72184 feb  6 14:54 /snap/core22/1380/usr/bin/chage
+-rwsr-xr-x 1 root root 72712 feb  6 14:54 /snap/core22/1380/usr/bin/chfn
+-rwsr-xr-x 1 root root 44808 feb  6 14:54 /snap/core22/1380/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 23136 feb  6 14:54 /snap/core22/1380/usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 feb  6 14:54 /snap/core22/1380/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 47488 mar 22 14:25 /snap/core22/1380/usr/bin/mount
+-rwsr-xr-x 1 root root 40496 feb  6 14:54 /snap/core22/1380/usr/bin/newgrp
+-rwsr-xr-x 1 root root 59976 feb  6 14:54 /snap/core22/1380/usr/bin/passwd
+-rwxr-sr-x 1 root tcpdump 293304 ian  2 18:54 /snap/core22/1380/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 55680 mar 22 14:25 /snap/core22/1380/usr/bin/su
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /snap/core22/1380/usr/bin/sudo
+-rwsr-xr-x 1 root root 35200 mar 22 14:25 /snap/core22/1380/usr/bin/umount
+-rwxr-sr-x 1 root tty 22912 mar 22 14:25 /snap/core22/1380/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 35112 oct 25  2022 /snap/core22/1380/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 338536 ian  2 18:54 /snap/core22/1380/usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /snap/core22/1380/usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root shadow 22680 ian 10 15:54 /snap/core22/1380/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 ian 10 15:54 /snap/core22/1380/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 22680 ian 10 15:54 /usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 ian 10 15:54 /usr/sbin/unix_chkpwd
+-rwsr-xr-- 1 root dip 424512 feb 24  2022 /usr/sbin/pppd
+-rwsr-xr-x 1 root root 14656 dec  5  2023 /usr/bin/vmware-user-suid-wrapper
+-rwsr-xr-x 1 root root 55680 mar 22 14:25 /usr/bin/su
+-rwsr-xr-x 1 root root 35200 mar 23  2022 /usr/bin/fusermount3
+-rwxr-sr-x 1 root shadow 72184 feb  6 14:54 /usr/bin/chage
+-rwsr-xr-x 1 root root 35200 mar 22 14:25 /usr/bin/umount
+-rwsr-xr-x 1 root root 47488 mar 22 14:25 /usr/bin/mount
+-rwsr-xr-x 1 root root 72072 feb  6 14:54 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 59976 feb  6 14:54 /usr/bin/passwd
+-rwsr-xr-x 1 root root 44808 feb  6 14:54 /usr/bin/chsh
+-rwsr-xr-x 1 root root 40496 feb  6 14:54 /usr/bin/newgrp
+-rwxr-sr-x 1 root crontab 39568 mar 23  2022 /usr/bin/crontab
+-rwxr-sr-x 1 root shadow 23136 feb  6 14:54 /usr/bin/expiry
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /usr/bin/sudo
+-rwxr-sr-x 1 root tty 22920 mar 22 14:25 /usr/bin/write.ul
+-rwxr-sr-x 1 root tty 22912 mar 22 14:25 /usr/bin/wall
+-rwxr-sr-x 1 root _ssh 293304 mar 15 22:28 /usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 72712 feb  6 14:54 /usr/bin/chfn
+-rwsr-xr-x 1 root root 30872 feb 26  2022 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 138408 mai 29  2023 /usr/lib/snapd/snap-confine
+-rwsr-sr-x 1 root root 14488 apr  1 23:24 /usr/lib/xorg/Xorg.wrap
+-rwsr-xr-x 1 root root 338536 mar 15 22:28 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 35112 oct 25  2022 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root mail 22856 iun 19  2023 /usr/libexec/camel-lock-helper-1.2
+----------------------------------------
+### Verificarile de securitate s-au încheiat pentru iuli@172.20.10.2 ###
+### Inceperea verificarilor de securitate pentru iuli@172.20.10.2 ###
+Data: Fri Jun 28 08:18:03 AM EEST 2024
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/passwd ###
+Comanda: ls -l /etc/passwd
+-rw-r--r-- 1 root root 2975 iun 27 19:49 /etc/passwd
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/shadow ###
+Comanda: ls -l /etc/shadow
+-rw-r----- 1 root shadow 1583 iun 27 19:49 /etc/shadow
+----------------------------------------
+### Verificarea permisiunilor pentru /etc/ssh/sshd_config ###
+Comanda: ls -l /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3254 mar 15 22:28 /etc/ssh/sshd_config
+----------------------------------------
+### Verificarea proceselor neobisnuite ###
+Comanda: ps aux | grep -E '(nmap|netcat|nc|telnet)'
+systemd+     465  0.0  0.1  89388  7296 ?        Ssl  08:12   0:00 /lib/systemd/systemd-timesyncd
+root         579  0.0  0.0  82700  3968 ?        Ssl  08:12   0:00 /usr/sbin/irqbalance --foreground
+iuli        2814  0.0  0.1 309624  7808 ?        Sl   08:13   0:00 /usr/libexec/at-spi-bus-launcher --launch-immediately
+iuli        5338  0.0  0.0  13168  3840 ?        Ss   08:18   0:00 bash -c ps aux | grep -E '(nmap|netcat|nc|telnet)'
+iuli        5340  0.0  0.0  12412  2816 ?        S    08:18   0:00 grep -E (nmap|netcat|nc|telnet)
+----------------------------------------
+### Verificarea utilizatorilor fara parole ###
+Comanda: awk -F: '($2 == "" ) { print $1 }' /etc/shadow
+----------------------------------------
+### Verificarea fisierelor cu setuid/setgid ###
+Comanda: find / -perm /6000 -type f -exec ls -ld {} \; 2>/dev/null
+-rwsr-xr-x 1 root root 377352 ian 15 16:02 /opt/VBoxGuestAdditions-7.0.14/bin/VBoxDRMClient
+-rwsr-xr-x 1 root root 135928 mar 21 23:14 /snap/snapd/21465/usr/lib/snapd/snap-confine
+-rwsr-xr-x 1 root root 135960 apr 24 19:45 /snap/snapd/21759/usr/lib/snapd/snap-confine
+-rwxr-sr-x 1 root shadow 84512 feb  6 14:49 /snap/core20/2318/usr/bin/chage
+-rwsr-xr-x 1 root root 85064 feb  6 14:49 /snap/core20/2318/usr/bin/chfn
+-rwsr-xr-x 1 root root 53040 feb  6 14:49 /snap/core20/2318/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 31312 feb  6 14:49 /snap/core20/2318/usr/bin/expiry
+-rwsr-xr-x 1 root root 88464 feb  6 14:49 /snap/core20/2318/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 55528 apr  9 18:34 /snap/core20/2318/usr/bin/mount
+-rwsr-xr-x 1 root root 44784 feb  6 14:49 /snap/core20/2318/usr/bin/newgrp
+-rwsr-xr-x 1 root root 68208 feb  6 14:49 /snap/core20/2318/usr/bin/passwd
+-rwxr-sr-x 1 root messagebus 350504 ian  2 19:13 /snap/core20/2318/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 67816 apr  9 18:34 /snap/core20/2318/usr/bin/su
+-rwsr-xr-x 1 root root 166056 apr  4  2023 /snap/core20/2318/usr/bin/sudo
+-rwsr-xr-x 1 root root 39144 apr  9 18:34 /snap/core20/2318/usr/bin/umount
+-rwsr-xr-- 1 root systemd-resolve 51344 oct 25  2022 /snap/core20/2318/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 477672 ian  2 19:13 /snap/core20/2318/usr/lib/openssh/ssh-keysign
+-rwxr-sr-x 1 root shadow 43168 ian 10 15:55 /snap/core20/2318/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 43160 ian 10 15:55 /snap/core20/2318/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 84512 feb  6 14:49 /snap/core20/2264/usr/bin/chage
+-rwsr-xr-x 1 root root 85064 feb  6 14:49 /snap/core20/2264/usr/bin/chfn
+-rwsr-xr-x 1 root root 53040 feb  6 14:49 /snap/core20/2264/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 31312 feb  6 14:49 /snap/core20/2264/usr/bin/expiry
+-rwsr-xr-x 1 root root 88464 feb  6 14:49 /snap/core20/2264/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 55528 mai 30  2023 /snap/core20/2264/usr/bin/mount
+-rwsr-xr-x 1 root root 44784 feb  6 14:49 /snap/core20/2264/usr/bin/newgrp
+-rwsr-xr-x 1 root root 68208 feb  6 14:49 /snap/core20/2264/usr/bin/passwd
+-rwxr-sr-x 1 root messagebus 350504 ian  2 19:13 /snap/core20/2264/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 67816 mai 30  2023 /snap/core20/2264/usr/bin/su
+-rwsr-xr-x 1 root root 166056 apr  4  2023 /snap/core20/2264/usr/bin/sudo
+-rwsr-xr-x 1 root root 39144 mai 30  2023 /snap/core20/2264/usr/bin/umount
+-rwxr-sr-x 1 root tty 35048 mai 30  2023 /snap/core20/2264/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 51344 oct 25  2022 /snap/core20/2264/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 477672 ian  2 19:13 /snap/core20/2264/usr/lib/openssh/ssh-keysign
+-rwxr-sr-x 1 root shadow 43168 ian 10 15:55 /snap/core20/2264/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 43160 ian 10 15:55 /snap/core20/2264/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 72184 nov 24  2022 /snap/core22/1122/usr/bin/chage
+-rwsr-xr-x 1 root root 72712 nov 24  2022 /snap/core22/1122/usr/bin/chfn
+-rwsr-xr-x 1 root root 44808 nov 24  2022 /snap/core22/1122/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 23136 nov 24  2022 /snap/core22/1122/usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 nov 24  2022 /snap/core22/1122/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 47480 feb 21  2022 /snap/core22/1122/usr/bin/mount
+-rwsr-xr-x 1 root root 40496 nov 24  2022 /snap/core22/1122/usr/bin/newgrp
+-rwsr-xr-x 1 root root 59976 nov 24  2022 /snap/core22/1122/usr/bin/passwd
+-rwxr-sr-x 1 root tcpdump 293304 ian  2 18:54 /snap/core22/1122/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 55672 feb 21  2022 /snap/core22/1122/usr/bin/su
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /snap/core22/1122/usr/bin/sudo
+-rwsr-xr-x 1 root root 35192 feb 21  2022 /snap/core22/1122/usr/bin/umount
+-rwxr-sr-x 1 root tty 22904 feb 21  2022 /snap/core22/1122/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 35112 oct 25  2022 /snap/core22/1122/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 338536 ian  2 18:54 /snap/core22/1122/usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /snap/core22/1122/usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root shadow 22680 feb  2  2023 /snap/core22/1122/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 feb  2  2023 /snap/core22/1122/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 72184 feb  6 14:54 /snap/core22/1380/usr/bin/chage
+-rwsr-xr-x 1 root root 72712 feb  6 14:54 /snap/core22/1380/usr/bin/chfn
+-rwsr-xr-x 1 root root 44808 feb  6 14:54 /snap/core22/1380/usr/bin/chsh
+-rwxr-sr-x 1 root shadow 23136 feb  6 14:54 /snap/core22/1380/usr/bin/expiry
+-rwsr-xr-x 1 root root 72072 feb  6 14:54 /snap/core22/1380/usr/bin/gpasswd
+-rwsr-xr-x 1 root root 47488 mar 22 14:25 /snap/core22/1380/usr/bin/mount
+-rwsr-xr-x 1 root root 40496 feb  6 14:54 /snap/core22/1380/usr/bin/newgrp
+-rwsr-xr-x 1 root root 59976 feb  6 14:54 /snap/core22/1380/usr/bin/passwd
+-rwxr-sr-x 1 root tcpdump 293304 ian  2 18:54 /snap/core22/1380/usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 55680 mar 22 14:25 /snap/core22/1380/usr/bin/su
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /snap/core22/1380/usr/bin/sudo
+-rwsr-xr-x 1 root root 35200 mar 22 14:25 /snap/core22/1380/usr/bin/umount
+-rwxr-sr-x 1 root tty 22912 mar 22 14:25 /snap/core22/1380/usr/bin/wall
+-rwsr-xr-- 1 root systemd-resolve 35112 oct 25  2022 /snap/core22/1380/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 338536 ian  2 18:54 /snap/core22/1380/usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /snap/core22/1380/usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root shadow 22680 ian 10 15:54 /snap/core22/1380/usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 ian 10 15:54 /snap/core22/1380/usr/sbin/unix_chkpwd
+-rwxr-sr-x 1 root shadow 22680 ian 10 15:54 /usr/sbin/pam_extrausers_chkpwd
+-rwxr-sr-x 1 root shadow 26776 ian 10 15:54 /usr/sbin/unix_chkpwd
+-rwsr-xr-- 1 root dip 424512 feb 24  2022 /usr/sbin/pppd
+-rwsr-xr-x 1 root root 14656 dec  5  2023 /usr/bin/vmware-user-suid-wrapper
+-rwsr-xr-x 1 root root 55680 mar 22 14:25 /usr/bin/su
+-rwsr-xr-x 1 root root 35200 mar 23  2022 /usr/bin/fusermount3
+-rwxr-sr-x 1 root shadow 72184 feb  6 14:54 /usr/bin/chage
+-rwsr-xr-x 1 root root 35200 mar 22 14:25 /usr/bin/umount
+-rwsr-xr-x 1 root root 47488 mar 22 14:25 /usr/bin/mount
+-rwsr-xr-x 1 root root 72072 feb  6 14:54 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 59976 feb  6 14:54 /usr/bin/passwd
+-rwsr-xr-x 1 root root 44808 feb  6 14:54 /usr/bin/chsh
+-rwsr-xr-x 1 root root 40496 feb  6 14:54 /usr/bin/newgrp
+-rwxr-sr-x 1 root crontab 39568 mar 23  2022 /usr/bin/crontab
+-rwxr-sr-x 1 root shadow 23136 feb  6 14:54 /usr/bin/expiry
+-rwsr-xr-x 1 root root 232416 apr  3  2023 /usr/bin/sudo
+-rwxr-sr-x 1 root tty 22920 mar 22 14:25 /usr/bin/write.ul
+-rwxr-sr-x 1 root tty 22912 mar 22 14:25 /usr/bin/wall
+-rwxr-sr-x 1 root _ssh 293304 mar 15 22:28 /usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 72712 feb  6 14:54 /usr/bin/chfn
+-rwsr-xr-x 1 root root 30872 feb 26  2022 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 138408 mai 29  2023 /usr/lib/snapd/snap-confine
+-rwsr-sr-x 1 root root 14488 apr  1 23:24 /usr/lib/xorg/Xorg.wrap
+-rwsr-xr-x 1 root root 338536 mar 15 22:28 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 35112 oct 25  2022 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 18736 feb 26  2022 /usr/libexec/polkit-agent-helper-1
+-rwxr-sr-x 1 root mail 22856 iun 19  2023 /usr/libexec/camel-lock-helper-1.2
+----------------------------------------
+### Verificarile de securitate s-au încheiat pentru iuli@172.20.10.2 ###
